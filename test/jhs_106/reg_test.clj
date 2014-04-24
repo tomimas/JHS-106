@@ -3,13 +3,25 @@
             [jhs-106.reg :refer :all]))
 
 (deftest shouldMatch
-  (testing "Street name rew matching"
-    (is (= ["Rosvokatu" "Rosvokatu"] (re-matches streetName "Rosvokatu")))
-    (is (= ["Urhean Rosvon katu" "katu"] (re-matches streetName "Urhean Rosvon katu"))))
-  (testing "Street number reg matching"
+  (testing "Street name regexp matching"
+    (is (= "Rosvokatu" (re-matches streetName "Rosvokatu")))
+    (is (= "Urhean Rosvon katu" (re-matches streetName "Urhean Rosvon katu")))
+    (is (= "Tark'ampujankatu" (re-matches streetName "Tark'ampujankatu")))
+    (is (= "Tark\u00B4ampujankatu" (re-matches streetName "Tark\u00B4ampujankatu")))
+    (is (= "Gregorius X:n tie" (re-matches streetName "Gregorius X:n tie")))
+    (is (= "Castr\u00E9nin polku" (re-matches streetName "Castr\u00E9nin polku")))
+    (is (= "CASTR\u00C9NIN AUKIO" (re-matches streetName "CASTR\u00C9NIN AUKIO")))
+    (is (= "\u00D6rkkim\u00F6rkin tie" (re-matches streetName "\u00D6rkkim\u00F6rkin tie")))
+    (is (= "\u00C4mm\u00E4l\u00E4nkatu" (re-matches streetName "\u00C4mm\u00E4l\u00E4nkatu")))
+    (is (= "Minna \u00C4kkijyrkän penger" (re-matches streetName "Minna \u00C4kkijyrkän penger")))
+    (is (= "\u00C5lans V\u00E4nstra V\u00E5ning" (re-matches streetName "\u00C5lans V\u00E4nstra V\u00E5ning"))))
+  (testing "Street number regexp matching"
     (is (= "1" (re-matches streetNumber "1")))
     (is (= "1z" (re-matches streetNumber "1z")))
-    (is (= nil (re-matches streetNumber "a"))))
+    (is (= nil (re-matches streetNumber "1Z")))
+    (is (= nil (re-matches streetNumber "a")))
+    (is (= nil (re-matches streetNumber "B")))
+    (is (= "1-3" (re-matches streetNumber "1-3"))))
   (testing "full street"
     (is (= ["Rosvokatu 1" "Rosvokatu " "1"] (re-matches street "Rosvokatu 1")))
     (is (= ["Urhean Rosvon katu 1" "Urhean Rosvon katu " "1"] (re-matches street "Urhean Rosvon katu 1")))))
