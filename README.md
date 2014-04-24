@@ -2,4 +2,10 @@ JHS-106
 =======
 
 Clojure implementation of Finnish address parsing based on [JHS-106 specification] (http://www.jhs-suositukset.fi/suomi/jhs106).
+Sadly the specification is available only in finnish.
 
+## License
+
+Copyright © 2014 Tomi Suuronen
+
+Distributed under the Eclipse Public License, the same as Clojure.
