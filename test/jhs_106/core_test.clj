@@ -12,7 +12,9 @@
     (is (= {:street {:name "Tark'ampujankatu"}} (parse "Tark'ampujankatu")))
     (is (= {:street {:name "Gregorius IX:n tie"}} (parse "Gregorius IX:n tie")))
     (is (= {:street {:name "Castr\u00E9nin polku"}} (parse "Castr\u00E9nin polku")))
-    (is (= {:street {:name "Vihdintie/Nummela KK"}} (parse "Vihdintie/Nummela KK"))))
+    (is (= {:street {:name "Vihdintie/Nummela KK"}} (parse "Vihdintie/Nummela KK")))))
+
+(deftest shouldParseStreetNumberBasedOnInput
   (testing "Street number parsing"
     (is (= {:street {:name "Kettulankatu"
                     :number "2"}} (parse "Kettulankatu 2")))
@@ -20,7 +22,7 @@
                     :number "2a"}} (parse "Kettulankatu 2a")))
     (is (= {:street {:name "Kettulankatu"
                     :number "2-4"}} (parse "Kettulankatu 2-4"))))
-  (testing "Special characters with street numbers"
+  (testing "Special characters in street names with street numbers"
     (is (={ :street {:name "\u00C4mm\u00E4l\u00E4nkatu"
                     :number "1"}} (parse "\u00C4mm\u00E4l\u00E4nkatu 1")))
     (is (={ :street {:name "\u00C4mm\u00E4l\u00E4nkatu"
