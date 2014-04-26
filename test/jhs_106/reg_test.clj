@@ -13,7 +13,7 @@
     (is (= "CASTR\u00C9NIN AUKIO" (re-matches streetName "CASTR\u00C9NIN AUKIO")))
     (is (= "\u00D6rkkim\u00F6rkin tie" (re-matches streetName "\u00D6rkkim\u00F6rkin tie")))
     (is (= "\u00C4mm\u00E4l\u00E4nkatu" (re-matches streetName "\u00C4mm\u00E4l\u00E4nkatu")))
-    (is (= "Minna \u00C4kkijyrkän penger" (re-matches streetName "Minna \u00C4kkijyrkän penger")))
+    (is (= "Minna \u00C4kkijyrk\u00E4n penger" (re-matches streetName "Minna \u00C4kkijyrk\u00E4n penger")))
     (is (= "\u00C5lans V\u00E4nstra V\u00E5ning" (re-matches streetName "\u00C5lans V\u00E4nstra V\u00E5ning"))))
   (testing "Street number regexp matching"
     (is (= "1" (re-matches streetNumber "1")))
