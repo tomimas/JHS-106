@@ -1,6 +1,7 @@
 (ns jhs-106.core-test
   (:require [clojure.test :refer :all]
-            [jhs-106.core :refer :all]))
+            [jhs-106.core :refer :all]
+            [jhs-106.reg :refer :all]))
 
 (deftest shouldParseStreetBasedOnInput
   (testing "Street name parsing"
@@ -45,3 +46,10 @@
                      :number "18"}} (parse "Castr\u00E9nin polku 18")))
     (is (= {:street {:name "Vihdintie/Nummela KK"
                      :number "9"}} (parse "Vihdintie/Nummela KK 9")))))
+
+(deftest shouldUnAbbreviateStreetName
+  (doseq [v abbreviations]
+  (is (= (str "Rosvo" (name (key v))) (unpabbreviate (str "Rosvo" (val v)))) (str (val v) " => " (name (key v))))
+  (is (= (str "Tark'ampujan" (name (key v))) (unpabbreviate (str "Tark'ampujan" (val v)))) (str (val v) " => " (name (key v))))
+  (is (= (str "\u00C4mm\u00E4l\u00E4n" (name (key v))) (unpabbreviate (str "\u00C4mm\u00E4l\u00E4n" (val v)))) (str (val v) " => " (name (key v))))
+  (is (= (str "Gregorius IX:n " (name (key v))) (unpabbreviate (str "Gregorius IX:n " (val v)))) (str (val v) " => " (name (key v))))))
