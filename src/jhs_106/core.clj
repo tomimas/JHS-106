@@ -27,5 +27,5 @@
   (def parts (re-matches street input))
   {:street (conj {:name (unabbreviate (if (< (count parts) 3) (get parts 0) (trim (get parts 1))))}
             (if (not-nil? (get parts 2)) {:number (get parts 2)})
-            (if (not-nil? (get parts 3)) {:stairway (get parts 3)})
+            (if (and (not-nil? (get parts 3)) (re-matches (re-pattern (str "(?:[" CAPITAL_LETTERS "]{1})")) (get parts 3))) {:stairway (get parts 3)})
             (if (not-nil? (get parts 4)) {:apartment (get parts 4)}))})
