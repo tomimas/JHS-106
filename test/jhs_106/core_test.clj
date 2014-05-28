@@ -86,6 +86,19 @@
                             :number "29/4"
                             :stairway "K"
                             :apartment "825"}} (parse "Ulvilantie 29/4 K 825"))))
+  (testing "Abbreviated apartment indicating parsing (it has no stairway)"
+           (is (= {:street {:name "Kuusikatu"
+                            :number "6"
+                            :apartment "1"}} (parse "Kuusikatu 6 as 1")))
+           (is (= {:street {:name "Ulla Tapanisen katu"
+                            :number "29"
+                            :apartment "15"}} (parse "Ulla Tapanisen katu 29 as. 15")))
+           (is (= {:street {:name "Ulvilav\u00E4gen"
+                            :number "29/4"
+                            :apartment "825"}} (parse "Ulvilav\u00E4gen 29/4 bst 825")))
+           (is (= {:street {:name "Ulvilav\u00E4gen"
+                            :number "29/4"
+                            :apartment "825"}} (parse "Ulvilav\u00E4gen 29/4 bst. 825"))))
   (testing "Simple abbreviated streetname parsing"
            (is (= {:street {:name "Kuusikatu"
                             :number "6"

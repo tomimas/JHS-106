@@ -52,6 +52,14 @@
     (is (= ["Rosvokatu 1 B" "Rosvokatu " "1" "B" nil] (re-matches street "Rosvokatu 1 B"))))
   (testing "full street with apartment"
     (is (= ["Rosvokatu 1 B 1" "Rosvokatu " "1" "B" "1"] (re-matches street "Rosvokatu 1 B 1")))
-    (is (= ["Rosvokatu 1 B 1c" "Rosvokatu " "1" "B" "1c"] (re-matches street "Rosvokatu 1 B 1c"))))
+    (is (= ["Rosvokatu 1 as 1" "Rosvokatu " "1" "as" "1"] (re-matches street "Rosvokatu 1 as 1")))
+    (is (= ["Rosvokatu 1 as. 1" "Rosvokatu " "1" "as." "1"] (re-matches street "Rosvokatu 1 as. 1")))
+    (is (= ["Rosvokatu 1 bst 1" "Rosvokatu " "1" "bst" "1"] (re-matches street "Rosvokatu 1 bst 1")))
+    (is (= ["Rosvokatu 1 bst. 1" "Rosvokatu " "1" "bst." "1"] (re-matches street "Rosvokatu 1 bst. 1")))
+    (is (= ["Rosvokatu 1 B 1c" "Rosvokatu " "1" "B" "1c"] (re-matches street "Rosvokatu 1 B 1c")))
+    (is (= ["Rosvokatu 1 as 1c" "Rosvokatu " "1" "as" "1c"] (re-matches street "Rosvokatu 1 as 1c")))
+    (is (= ["Rosvokatu 1 as. 1c" "Rosvokatu " "1" "as." "1c"] (re-matches street "Rosvokatu 1 as. 1c")))
+    (is (= ["Rosvokatu 1 bst 1c" "Rosvokatu " "1" "bst" "1c"] (re-matches street "Rosvokatu 1 bst 1c")))
+    (is (= ["Rosvokatu 1 bst. 1c" "Rosvokatu " "1" "bst." "1c"] (re-matches street "Rosvokatu 1 bst. 1c"))))
   (testing "address with multiple buildings on same plot"
     (is (= ["Ulvilantie 29/4 K 825" "Ulvilantie " "29/4" "K" "825"] (re-matches street "Ulvilantie 29/4 K 825")))))
