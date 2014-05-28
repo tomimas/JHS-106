@@ -42,9 +42,16 @@
 
 (deftest shouldMatchFullStreet
   (testing "full street"
-    (is (= ["Rosvokatu 1" "Rosvokatu " "1"] (re-matches street "Rosvokatu 1")))
-    (is (= ["Rosvokatu 1c" "Rosvokatu " "1c"] (re-matches street "Rosvokatu 1c")))
-    (is (= ["Rosvokatu 21-23" "Rosvokatu " "21-23"] (re-matches street "Rosvokatu 21-23")))
-    (is (= ["Urhean Rosvon katu 1" "Urhean Rosvon katu " "1"] (re-matches street "Urhean Rosvon katu 1")))
-    (is (= ["Urhean Rosvon katu 1d" "Urhean Rosvon katu " "1d"] (re-matches street "Urhean Rosvon katu 1d")))
-    (is (= ["Urhean Rosvon katu 4-6" "Urhean Rosvon katu " "4-6"] (re-matches street "Urhean Rosvon katu 4-6")))))
+    (is (= ["Rosvokatu 1" "Rosvokatu " "1" nil nil] (re-matches street "Rosvokatu 1")))
+    (is (= ["Rosvokatu 1c" "Rosvokatu " "1c" nil nil] (re-matches street "Rosvokatu 1c")))
+    (is (= ["Rosvokatu 21-23" "Rosvokatu " "21-23" nil nil] (re-matches street "Rosvokatu 21-23")))
+    (is (= ["Urhean Rosvon katu 1" "Urhean Rosvon katu " "1" nil nil] (re-matches street "Urhean Rosvon katu 1")))
+    (is (= ["Urhean Rosvon katu 1d" "Urhean Rosvon katu " "1d" nil nil] (re-matches street "Urhean Rosvon katu 1d")))
+    (is (= ["Urhean Rosvon katu 4-6" "Urhean Rosvon katu " "4-6" nil nil] (re-matches street "Urhean Rosvon katu 4-6"))))
+  (testing "full street with stairway"
+    (is (= ["Rosvokatu 1 B" "Rosvokatu " "1" "B" nil] (re-matches street "Rosvokatu 1 B"))))
+  (testing "full street with apartment"
+    (is (= ["Rosvokatu 1 B 1" "Rosvokatu " "1" "B" "1"] (re-matches street "Rosvokatu 1 B 1")))
+    (is (= ["Rosvokatu 1 B 1c" "Rosvokatu " "1" "B" "1c"] (re-matches street "Rosvokatu 1 B 1c"))))
+  (testing "address with multiple buildings on same plot"
+    (is (= ["Ulvilantie 29/4 K 825" "Ulvilantie " "29/4" "K" "825"] (re-matches street "Ulvilantie 29/4 K 825")))))
