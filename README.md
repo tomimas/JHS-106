@@ -8,7 +8,7 @@ Sadly the specification is available only in finnish.
 ## Latest version
 
 ```clojure
-[tomimas/jhs-106 "0.1.2"]
+[tomimas/jhs-106 "0.2.0"]
 ```
 
 ## Eclipse
