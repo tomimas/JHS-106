@@ -58,6 +58,7 @@ user=> (j/parse "Tarkk'ampujank. 12-14 B 34b")
 user=> (j/parse "Mikki Hiiren p. 12/4b as. 034b")
 {:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :numberpartition "b", :building "4", :numberpart "12", :number "12/4b", :name "Mikki Hiiren polku"}}
 ```
+
 ## Eclipse
 
 By running 'lein eclipse', the Eclipse project is created for IDE development.
