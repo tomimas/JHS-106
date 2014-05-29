@@ -30,10 +30,10 @@
                       LATIN_SUPPORT))
 
 (def STREET_NAME (str "(?:[" ALL_LETTERS "]+[\\s]{0,1})+"))
-(def STREET_NUMBER (str "(?:[0-9]+(?:[-/][0-9]+)?(?:[" SMALL_LETTERS "])?)"))
+(def STREET_NUMBER (str "(?:(?:([0-9]+)(?:([-][0-9]+)?|([/][0-9]+)))([" SMALL_LETTERS "])?)"))
 (def APARTMENT_ABBREVIATIONS "as|as\\.|bst|bst\\.")
 (def STREET_STAIRWAY (str "(?:[" CAPITAL_LETTERS "]{1}|" APARTMENT_ABBREVIATIONS ")"))
-(def APARTMENT (str "(?:[0-9]{1,3}[" SMALL_LETTERS "]{0,1})"))
+(def APARTMENT (str "([0]{0,2})([0-9]{1,3})([" SMALL_LETTERS "]{0,1})"))
 
 (def abbreviations (array-map (keyword "L\u00E4ntinen") "L\u00E4nt."
                               :Pohjoinen "Pohj."
@@ -89,4 +89,4 @@
 
 (def streetName (re-pattern STREET_NAME))
 (def streetNumber (re-pattern STREET_NUMBER))
-(def street (re-pattern (str "(" STREET_NAME ")(" STREET_NUMBER ")?[\\s]{0,1}(" STREET_STAIRWAY ")?[\\s]{0,1}(" APARTMENT ")?")))
+(def street (re-pattern (str "(" STREET_NAME ")(?:" STREET_NUMBER ")?[\\s]{0,1}(" STREET_STAIRWAY ")?[\\s]{0,1}(?:" APARTMENT ")?")))
