@@ -37,3 +37,8 @@
             (if (not-nil? (get parts 8)) {:apartment (str (get parts 8) (get parts 9))})
             (if (and (not-nil? (get parts 8)) (not-empty? (get parts 8))) {:apartmentnumber (get parts 8)})
             (if (and (not-nil? (get parts 9)) (not-empty? (get parts 9))) {:apartmentpartition (get parts 9)}))})
+
+(defn simple-parse
+  "Parses input into simple parts."
+  [input]
+  {:street (dissoc ((parse input) :street) :apartmentnumber :apartmentpartition :numberpart :numberpartition :building :endnumber :startnumber)})

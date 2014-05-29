@@ -124,7 +124,15 @@
                             :building "4"
                             :stairway "K"
                             :apartment "825"
-                            :apartmentnumber "825"}} (parse "Ulvilantie 29/4 K 825"))))
+                            :apartmentnumber "825"}} (parse "Ulvilantie 29/4 K 825")))
+           (is (={ :street {:name "Gregorius IX:n tie"
+                            :number "12-14"
+                            :startnumber "12"
+                            :endnumber "14"
+                            :stairway "A"
+                            :apartment "13a"
+                            :apartmentnumber "13"
+                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 A 13a"))))
   (testing "Simple leading zeroes apartment number parsing"
            (is (= {:street {:name "Kuusikatu"
                             :number "6"
@@ -203,6 +211,32 @@
                             :stairway "K"
                             :apartment "825"
                             :apartmentnumber "825"}} (parse "Ulvilant. 29/4 K 825")))))
+
+(deftest shouldDoSimpleParsing
+  (is (= {:street {:name "Kuusikatu"}} (simple-parse "Kuusikatu")))
+  (is (= {:street {:name "Kuusikeijun aukio"}} (simple-parse "Kuusikeijun aukio")))
+  (is (= {:street {:name "Kuusikeijun aukio"}} (simple-parse "Kuusikeijun auk.")))
+  (is (= {:street {:name "Kuusikatu"
+                   :number "6"}} (simple-parse "Kuusikatu 6")))
+  (is (= {:street {:name "Kuusikatu"
+                   :number "6"
+                   :stairway "A"}} (simple-parse "Kuusikatu 6 A")))
+  (is (= {:street {:name "Kuusikatu"
+                   :number "6"
+                   :stairway "A"
+                   :apartment "1"}} (simple-parse "Kuusikatu 6 A 001")))
+  (is (= {:street {:name "Ulvilantie"
+                   :number "29/4"
+                   :stairway "K"
+                   :apartment "825"}} (simple-parse "Ulvilant. 29/4 K 825")))
+  (is (= {:street {:name "Ulla Tapanisen raitti"
+                   :number "29b"
+                   :stairway "D"
+                   :apartment "15b"}} (simple-parse "Ulla Tapanisen r. 29b D 15b")))
+  (is (={ :street {:name "Gregorius IX:n tie"
+                   :number "12-14"
+                   :stairway "A"
+                   :apartment "13a"}} (simple-parse "Gregorius IX:n tie 12-14 A 13a"))))
 
 (deftest shouldUnAbbreviateStreetName
   (doseq [v abbreviations]
