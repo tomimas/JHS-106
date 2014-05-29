@@ -50,16 +50,18 @@ Precise output:
 user=> (require '[jhs-106.core :as j])
 nil
 user=> (j/parse "Ullas tg 12 bst. 34")
-{:street {:apartmentnumber "34", :apartment "34", :numberpart "12", :number "12", :name "Ullas torg"}}
-user=> (j/parse "Ullas tg 12 1a")
-{:street {:apartmentpartition "a", :apartmentnumber "1", :apartment "1a", :numberpart "12", :number "12",
+{:street {:apartmentnumber "34", :apartment "34", :numberpart "12", :number "12",
           :name "Ullas torg"}}
+user=> (j/parse "Ullas tg 12 1a")
+{:street {:apartmentpartition "a", :apartmentnumber "1", :apartment "1a", :numberpart "12",
+          number "12", :name "Ullas torg"}}
 user=> (j/parse "Tarkk'ampujank. 12-14 B 34b")
-{:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B", :endnumber "14",
-          :startnumber "12", :number "12-14", :name "Tarkk'ampujankatu"}}
+{:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
+          :endnumber "14", :startnumber "12", :number "12-14", :name "Tarkk'ampujankatu"}}
 user=> (j/parse "Mikki Hiiren p. 12/4b as. 034b")
-{:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :numberpartition "b",
-          :building "4", :numberpart "12", :number "12/4b", :name "Mikki Hiiren polku"}}
+{:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b",
+          :numberpartition "b" :building "4", :numberpart "12", :number "12/4b",
+          :name "Mikki Hiiren polku"}}
 ```
 
 ## Eclipse
