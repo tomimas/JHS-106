@@ -4,11 +4,10 @@ JHS-106
 Clojure implementation of Finnish address parsing based on [JHS-106 specification] (http://www.jhs-suositukset.fi/suomi/jhs106).
 Sadly the specification is available only in finnish.
 
-
 ## Latest version
 
 ```clojure
-[tomimas/jhs-106 "0.3.0"]
+[tomimas/jhs-106 "0.4.0"]
 ```
 
 ## Examples
@@ -58,10 +57,14 @@ user=> (j/parse "Ullas tg 12 1a")
 user=> (j/parse "Tarkk'ampujank. 12-14 B 34b")
 {:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
           :endnumber "14", :startnumber "12", :number "12-14", :name "Tarkk'ampujankatu"}}
-user=> (j/parse "Mikki Hiiren p. 12/4b as. 034b")
-{:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b",
-          :numberpartition "b" :building "4", :numberpart "12", :number "12/4b",
+user=> (j/parse "Mikki Hiiren p. 12b/4 as. 034b")
+{:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :building "4",
+          :numberpartition "b", :numberpart "12", :number "12b/4",
           :name "Mikki Hiiren polku"}}
+user=> (j/parse "Tarkk'ampujank. 12-14 rak. 2 B 034b")
+{:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
+          :building "2", :endnumber "14", :startnumber "12", :number "12-14/2",
+          :name "Tarkk'ampujankatu"}}
 ```
 
 ## Eclipse
