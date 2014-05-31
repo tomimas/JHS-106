@@ -5,15 +5,24 @@
 
 (deftest shouldParseStreetBasedInput
   (testing "Street name parsing"
-    (is (= {:street {:name "Kettulankatu"}} (parse "Kettulankatu")))
-    (is (= {:street {:name "Urho Kekkosen katu"}} (parse "Urho Kekkosen katu"))))
+           (is (= {:street {:name "Kettulankatu"}} (parse "Kettulankatu")))
+           (is (= {:street {:name "Urho Kekkosen katu"}} (parse "Urho Kekkosen katu"))))
   (testing "Special characters in names"
-    (is (= {:street {:name "\u00D6rkkitie"}} (parse "\u00D6rkkitie")))
-    (is (= {:street {:name "M\u00F6rk\u00F6katu"}} (parse "M\u00F6rk\u00F6katu")))
-    (is (= {:street {:name "Tark'ampujankatu"}} (parse "Tark'ampujankatu")))
-    (is (= {:street {:name "Gregorius IX:n tie"}} (parse "Gregorius IX:n tie")))
-    (is (= {:street {:name "Castr\u00E9nin polku"}} (parse "Castr\u00E9nin polku")))
-    (is (= {:street {:name "Vihdintie/Nummela KK"}} (parse "Vihdintie/Nummela KK")))))
+           (is (= {:street {:name "\u00D6rkkitie"}} (parse "\u00D6rkkitie")))
+           (is (= {:street {:name "M\u00F6rk\u00F6katu"}} (parse "M\u00F6rk\u00F6katu")))
+           (is (= {:street {:name "Tark'ampujankatu"}} (parse "Tark'ampujankatu")))
+           (is (= {:street {:name "Gregorius IX:n tie"}} (parse "Gregorius IX:n tie")))
+           (is (= {:street {:name "Castr\u00E9nin polku"}} (parse "Castr\u00E9nin polku")))
+           (is (= {:street {:name "Vihdintie/Nummela KK"}} (parse "Vihdintie/Nummela KK"))))
+  (testing "Street name capitalization"
+           (is (= {:street {:name "Kettulankatu"}} (parse "kettulankatu")))
+           (is (= {:street {:name "\u00D6rkkitie"}} (parse "\u00F6rkkitie")))
+           (is (= {:street {:name "Urho Kekkosen katu"}} (parse "urho Kekkosen katu")))
+           (is (= {:street {:name "Urho kekkosen Katu"}} (parse "urho kekkosen Katu")))
+           (is (= {:street {:name "Castr\u00E9nin polku"}} (parse "castr\u00E9nin polku")))
+           (is (= {:street {:name "Gregorius ix:n tie"}} (parse "Gregorius ix:n tie")))
+           (is (= {:street {:name "Vihdintie/Nummela KK"}} (parse "vihdintie/Nummela KK")))
+           (is (= {:street {:name "Vihdintie/nummela kk"}} (parse "vihdintie/nummela kk")))))
 
 (deftest shouldParseStreetNumberBasedInput
   (testing "Street number parsing"
