@@ -35,8 +35,8 @@
             (if (not-nil? (get parts 5)) {:building (get parts 5)})
             (if (and (not-nil? (get parts 6)) (re-matches (re-pattern (str "(?:[" CAPITAL_LETTERS "]{1})")) (get parts 6))) {:stairway (get parts 6)})
             (if (not-nil? (get parts 7)) {:apartment (str (get parts 7) (get parts 8))})
-            (if (and (not-nil? (get parts 7)) (not-empty? (get parts 7))) {:apartmentnumber (get parts 7)})
-            (if (and (not-nil? (get parts 8)) (not-empty? (get parts 8))) {:apartmentpartition (get parts 8)}))})
+            (if (not-nil? (get parts 7)) {:apartmentnumber (get parts 7)})
+            (if (not-nil? (get parts 8)) {:apartmentpartition (get parts 8)}))})
 
 (defn simple-parse
   "Parses input into simple parts."
