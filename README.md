@@ -7,7 +7,7 @@ Sadly the specification is available only in finnish.
 ## Latest version
 
 ```clojure
-[tomimas/jhs-106 "0.4.0"]
+[tomimas/jhs-106 "0.4.1"]
 ```
 
 ## Examples
