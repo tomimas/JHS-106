@@ -57,9 +57,9 @@ user=> (j/parse "Ullas tg 12 1a")
 user=> (j/parse "Tarkk'ampujank. 12-14 B 34b")
 {:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
           :endnumber "14", :startnumber "12", :number "12-14", :name "Tarkk'ampujankatu"}}
-user=> (j/parse "Mikki Hiiren p. 12b/4 as. 034b")
+user=> (j/parse "Mikki Hiiren p. 12a/4 as. 034b")
 {:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :building "4",
-          :numberpartition "b", :numberpart "12", :number "12b/4",
+          :numberpartition "a", :numberpart "12", :number "12a/4",
           :name "Mikki Hiiren polku"}}
 user=> (j/parse "Tarkk'ampujank. 12-14 rak. 2 B 034b")
 {:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
