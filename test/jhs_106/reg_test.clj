@@ -2,6 +2,12 @@
   (:require [clojure.test :refer :all]
             [jhs-106.reg :refer :all]))
 
+(deftest shouldMatchPostcode
+  (is (= ["00100" "00100"] (re-matches postCode "00100")))
+  (is (= ["37140" "37140"] (re-matches postCode "37140")))
+  (is (= nil (re-matches postCode "3714")))
+  (is (= nil (re-matches postCode "371401"))))
+
 (deftest shouldMatchStreetName
   (testing "Street name regexp matching"
     (is (= "Rosvokatu" (re-matches streetName "Rosvokatu"))))
@@ -80,5 +86,9 @@
     (is (= ["Ulvilantie 29a rak. 4 K 825" "Ulvilantie " "29" "a" nil "4" "K" "825" nil] (re-matches street "Ulvilantie 29a rak. 4 K 825")))
     (is (= ["Ulvilantie 29a rak 4 K 825" "Ulvilantie " "29" "a" nil "4" "K" "825" nil] (re-matches street "Ulvilantie 29a rak 4 K 825")))
     (is (= ["Ulvilantie 29-31/4 K 825" "Ulvilantie " "29" nil "31" "4" "K" "825" nil] (re-matches street "Ulvilantie 29-31/4 K 825")))
-    (is (= ["Ulvilantie 29-31 rak. 4 K 825" "Ulvilantie " "29" nil "31" "4" "K" "825" nil] (re-matches street "Ulvilantie 29-31 rak. 4 K 825")))
-    (is (= ["Ulvilantie 29-31 rak 4 K 825" "Ulvilantie " "29" nil "31" "4" "K" "825" nil] (re-matches street "Ulvilantie 29-31 rak 4 K 825")))))
+    (is (= ["Ulvilantie 29-31 rak. 4 K 825" "Ulvilantie " "29" nil "31" "4" "K" "825" nil] (re-matches street "Ulvilantie 29-31 rak. 4 K 825")))))
+
+(deftest shouldMatchAddress
+  (is (= ["37140" "37140" ""] (re-matches address "37140")))
+  (is (= ["Ulvilantie 29-31 rak 4 K 825" nil "Ulvilantie 29-31 rak 4 K 825"] (re-matches address "Ulvilantie 29-31 rak 4 K 825")))
+  (is (= ["37140 Ulvilantie 29-31 rak 4 K 825" "37140" "Ulvilantie 29-31 rak 4 K 825"] (re-matches address "37140 Ulvilantie 29-31 rak 4 K 825"))))
