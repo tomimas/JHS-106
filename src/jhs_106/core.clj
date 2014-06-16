@@ -19,13 +19,15 @@
 (defn unabbreviate
   "Unabbreviates a street name"
   [streetname]
-  (def unabbreviated nil)
-  (doseq [abbr abbreviations]
-   (if (and (.endsWith streetname (val abbr)) (nil? unabbreviated))
-        (def unabbreviated (replace-last streetname (val abbr) (name (key abbr))))))
-  (if (nil? unabbreviated)
-    streetname
-    unabbreviated))
+  (let [unabbreviated (filter not-nil?
+                              (into ()
+                                    (for [abbr abbreviations]
+                                          (if (.endsWith streetname (val abbr))
+                                            (replace-last streetname (val abbr) (name (key abbr)))
+                                            nil))))]
+    (if (empty? unabbreviated)
+      streetname
+      (last unabbreviated))))
 
 (defn parse
   "Parses input into JHS-106 specified parts."
