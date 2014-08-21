@@ -6,7 +6,7 @@
 (def not-empty? (comp not empty?))
 
 (defn capitalize
-  [streetname]
+  [^String streetname]
   "capitalizes only the first letter, leaving other intact."
   (str (clojure.string/upper-case (.substring streetname 0 1)) (.substring streetname 1)))
 
@@ -18,7 +18,7 @@
 
 (defn unabbreviate
   "Unabbreviates a street name"
-  [streetname]
+  [^String streetname]
   (let [unabbreviated (filter not-nil?
                               (into ()
                                     (for [abbr abbreviations]
