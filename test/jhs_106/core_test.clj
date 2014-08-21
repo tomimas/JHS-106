@@ -3,7 +3,7 @@
             [jhs-106.core :refer :all]
             [jhs-106.reg :refer :all]))
 
-(deftest shouldParseStreetBasedInput
+(deftest should-parse-street-based-input
   (testing "Street name parsing"
            (is (= {:street {:name "Kettulankatu"}} (parse "Kettulankatu")))
            (is (= {:street {:name "Urho Kekkosen katu"}} (parse "Urho Kekkosen katu"))))
@@ -24,7 +24,7 @@
            (is (= {:street {:name "Vihdintie/Nummela KK"}} (parse "vihdintie/Nummela KK")))
            (is (= {:street {:name "Vihdintie/nummela kk"}} (parse "vihdintie/nummela kk")))))
 
-(deftest shouldParseStreetNumberBasedInput
+(deftest should-parse-streetnumber-based-input
   (testing "Street number parsing"
     (is (= {:street {:name "Kettulankatu"
                      :number "2"
@@ -78,7 +78,7 @@
                      :number "9"
                      :numberpart "9"}} (parse "Vihdintie/Nummela KK 9")))))
 
-(deftest shouldParseStairWayBasedInput
+(deftest should-parse-stairway-based-input
   (testing "Simple stairway parsing"
            (is (= {:street {:name "Kuusikatu"
                             :number "6"
@@ -113,7 +113,7 @@
                             :building "4"
                             :stairway "K"}} (parse "Ulvilant. 29/4 K")))))
 
-(deftest shouldParseApartmentBasedInput
+(deftest should-parse-apartment-based-input
   (testing "Simple apartment parsing"
            (is (= {:street {:name "Kuusikatu"
                             :number "6"
@@ -221,7 +221,7 @@
                             :apartment "825"
                             :apartmentnumber "825"}} (parse "Ulvilant. 29/4 K 825")))))
 
-(deftest shouldParseBuildingBasedInput
+(deftest should-parse-building-based-input
   (testing "Simple building parsing"
            (is (= {:street {:name "Kuusikatu"
                             :number "6/3"
@@ -265,7 +265,7 @@
                             :apartmentnumber "13"
                             :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 rak. 7 A 13a")))))
 
-(deftest shouldDoSimpleParsing
+(deftest should-do-simple-parsing
   (is (= {:street {:name "Kuusikatu"}} (simple-parse "Kuusikatu")))
   (is (= {:street {:name "Kuusikeijun aukio"}} (simple-parse "Kuusikeijun aukio")))
   (is (= {:street {:name "Kuusikeijun aukio"}} (simple-parse "Kuusikeijun auk.")))
@@ -303,7 +303,7 @@
                    :stairway "A"
                    :apartment "13a"}} (simple-parse "Gregorius IX:n tie 12-14 rak. 2 A 13a"))))
 
-(deftest shouldUnAbbreviateStreetName
+(deftest should-unabbreviate-streetname
   (doseq [v abbreviations]
     (is (= (str "Rosvo" (name (key v))) (unabbreviate (str "Rosvo" (val v)))) (str (val v) " => " (name (key v))))
     (is (= (str "Tark'ampujan" (name (key v))) (unabbreviate (str "Tark'ampujan" (val v)))) (str (val v) " => " (name (key v))))
