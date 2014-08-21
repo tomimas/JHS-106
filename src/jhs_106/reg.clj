@@ -30,7 +30,7 @@
                       LATIN_SUPPORT))
 
 (def STREET_NAME (str "(?:[" ALL_LETTERS "]+[\\s]{0,1})+"))
-(def STREET_NUMBER (str "(?:([0-9]+)(?:([" SMALL_LETTERS "])?|(?:[-]([0-9]+))?)?(?:(?:[/]|(?:[\\s]rak[\\.]?[\\s]))([0-9]+))?)"))
+(def STREET_NUMBER (str "(?:([0-9]+)(?:([" SMALL_LETTERS "][-]?[" SMALL_LETTERS "]?)?|(?:[-]([0-9]+))?)?(?:(?:[/]|(?:[\\s]rak[\\.]?[\\s]))([0-9]+))?)"))
 (def APARTMENT_ABBREVIATIONS "as|as\\.|bst|bst\\.")
 (def STREET_STAIRWAY (str "(?:[" CAPITAL_LETTERS "]{1}|" APARTMENT_ABBREVIATIONS ")"))
 (def APARTMENT (str "(?:[0]{0,2})([0-9]{1,3})([" SMALL_LETTERS "])?"))
