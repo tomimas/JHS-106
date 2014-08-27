@@ -74,6 +74,30 @@ user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B")
           :building "2", :numberpart "12", :number "12a/2", :name "Tarkk'ampujankatu"}}
 ```
 
+Postcode/postoffice support:
+```clojure
+user=> (require '[jhs-106.core :as j])
+nil
+user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B\n05830 HYVINKÄÄ")
+{:postoffice "HYVINKÄÄ",
+ :postcode "05830",
+ :street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
+          :building "2", :numberpartition "a", :numberpart "12", :number "12a/2",
+          :name "Tarkk'ampujankatu"}}
+user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B
+  #_=> 05830 HYVINKÄÄ")
+{:postoffice "HYVINKÄÄ",
+ :postcode "05830",
+ :street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
+          :building "2", :numberpartition "a", :numberpart "12", :number "12a/2",
+          :name "Tarkk'ampujankatu"}}user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B,05830 HYVINKÄÄ")
+user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B, 05830 Hyvinkää")
+{:postoffice "HYVINKÄÄ",
+ :postcode "05830",
+ :street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
+          :building "2", :numberpartition "a", :numberpart "12", :number "12a/2",
+          :name "Tarkk'ampujankatu"}}
+```
 ## Eclipse
 
 By running 'lein eclipse', the Eclipse project files are created for IDE development.
