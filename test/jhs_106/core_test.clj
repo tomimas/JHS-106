@@ -3,6 +3,48 @@
             [jhs-106.core :refer :all]
             [jhs-106.reg :refer :all]))
 
+(deftest should-parse-address-based-input
+  (testing "postal address"
+           (is (= {:street {:name "Kettulankatu"}
+                   :postcode "05800"
+                   :postoffice "KOUVOLA"} (parse "Kettulankatu\n05800 KOUVOLA")))
+           (is (= {:street {:name "Kettulankatu"}
+                   :postcode "05800"
+                   :postoffice "KOUVOLA"} (parse "Kettulankatu,05800 koUvoLa")))
+           (is (= {:street {:name "Kettulankatu"}
+                   :postcode "05800"
+                   :postoffice "KOUVOLA"} (parse "Kettulankatu, 05800 koUvoLa")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"
+                            :apartment "15b"
+                            :apartmentnumber "15"
+                            :apartmentpartition "b"}
+                   :postcode "37150"
+                   :postoffice "NOKIA"} (parse "Ulla Tapanisen r. 29B d 15B\n37150 NOKIA")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"
+                            :apartment "15b"
+                            :apartmentnumber "15"
+                            :apartmentpartition "b"}
+                   :postcode "12345"
+                   :postoffice "\u00C5LAND"} (parse "Ulla Tapanisen r. 29B d 15B\n12345 \u00E5land")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"
+                            :apartment "15b"
+                            :apartmentnumber "15"
+                            :apartmentpartition "b"}
+                   :postcode "12345"
+                   :postoffice "\u00C5LAND"} (parse "Ulla Tapanisen r. 29B d 15B,12345 \u00E5land")))))
+
 (deftest should-parse-street-based-input
   (testing "Street name parsing"
            (is (= {:street {:name "Kettulankatu"}} (parse "Kettulankatu")))
@@ -378,7 +420,16 @@
                             :stairway "A"
                             :apartment "13a"
                             :apartmentnumber "13"
-                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 rak. 7 a 13A")))))
+                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 rak. 7 a 13A")))
+           (is (={ :street {:name "Gregorius IX:n tie"
+                            :number "12-14/7"
+                            :startnumber "12"
+                            :endnumber "14"
+                            :building "7"
+                            :stairway "\u00D6"
+                            :apartment "13\u00E5"
+                            :apartmentnumber "13"
+                            :apartmentpartition "\u00E5"}} (parse "Gregorius IX:n tie 12-14 rak. 7 \u00F6 13\u00C5")))))
 
 (deftest should-do-simple-parsing
   (is (= {:street {:name "Kuusikatu"}} (simple-parse "Kuusikatu")))
@@ -424,7 +475,11 @@
   (is (={ :street {:name "Gregorius IX:n tie"
                    :number "12-14/2"
                    :stairway "A"
-                   :apartment "13a"}} (simple-parse "Gregorius IX:n tie 12-14 rak. 2 A 13a"))))
+                   :apartment "13a"}} (simple-parse "Gregorius IX:n tie 12-14 rak. 2 A 13a")))
+  (is (={ :street {:name "Gregorius IX:n tie"
+                   :number "12-14/2"
+                   :stairway "\u00C4"
+                   :apartment "13\u00F6"}} (simple-parse "Gregorius IX:n tie 12-14 rak. 2 \u00C4 13\u00F6"))))
 
 (deftest should-unabbreviate-streetname
   (doseq [v abbreviations]

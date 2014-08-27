@@ -13,27 +13,33 @@
 (def SMALL_LETTERS "a-z")
 (def CAPITAL_LETTERS "A-Z")
 
-(def LATIN_SUPPORT (str SMALL_O_WITH_DIARESIS
+(def LATIN_LETTERS (str SMALL_O_WITH_DIARESIS
                         SMALL_A_WITH_DIARESIS
                         SMALL_A_WITH_RING_ABOVE
                         SMALL_E_WITH_ACUTE
                         CAPITAL_O_WITH_DIARESIS
                         CAPITAL_A_WITH_DIARESIS
                         CAPITAL_A_WITH_RING_ABOVE
-                        CAPITAL_E_WITH_ACUTE
-                        APOSTROPHE
-                        "-/\\.:"
-                        ACUTE_ACCENT))
+                        CAPITAL_E_WITH_ACUTE))
+
+(def OTHER (str APOSTROPHE
+                "-/\\.:"
+                ACUTE_ACCENT))
 
 (def ALL_LETTERS (str SMALL_LETTERS
                       CAPITAL_LETTERS
-                      LATIN_SUPPORT))
+                      LATIN_LETTERS))
 
-(def STREET_NAME (str "(?:[" ALL_LETTERS "]+[\\s]{0,1})+"))
-(def STREET_NUMBER (str "(?:([0-9]+)(?:([" SMALL_LETTERS CAPITAL_LETTERS "][-]?[" SMALL_LETTERS CAPITAL_LETTERS "]?)?|(?:[-]([0-9]+))?)?(?:(?:[/]|(?:[\\s]rak[\\.]?[\\s]))([0-9]+))?)"))
+(def ALL_CHARACTERS (str ALL_LETTERS
+                         OTHER))
+
+(def STREET_NAME (str "(?:[" ALL_CHARACTERS "]+[\\s]{0,1})+"))
+(def STREET_NUMBER (str "(?:([0-9]+)(?:([" ALL_LETTERS "][-]?[" ALL_LETTERS "]?)?|(?:[-]([0-9]+))?)?(?:(?:[/]|(?:[\\s]rak[\\.]?[\\s]))([0-9]+))?)"))
 (def APARTMENT_ABBREVIATIONS "as|as\\.|bst|bst\\.")
-(def STREET_STAIRWAY (str "(?:[" SMALL_LETTERS CAPITAL_LETTERS "]{1}|" APARTMENT_ABBREVIATIONS ")"))
-(def APARTMENT (str "(?:[0]{0,2})([0-9]{1,3})([" SMALL_LETTERS CAPITAL_LETTERS "])?"))
+(def STREET_STAIRWAY (str "(?:[" ALL_LETTERS "]{1}|" APARTMENT_ABBREVIATIONS ")"))
+(def APARTMENT (str "(?:[0]{0,2})([0-9]{1,3})([" ALL_LETTERS "])?"))
+(def POSTCODE (str "[\\d]{5}"))
+(def POSTOFFICE (str "[" ALL_LETTERS "]{0,}"))
 
 (def abbreviations (array-map (keyword "L\u00E4ntinen") "L\u00E4nt."
                               :Pohjoinen "Pohj."
@@ -90,3 +96,4 @@
 (def streetName (re-pattern STREET_NAME))
 (def streetNumber (re-pattern STREET_NUMBER))
 (def street (re-pattern (str "(" STREET_NAME ")(?:" STREET_NUMBER ")?[\\s]{0,1}(" STREET_STAIRWAY ")?[\\s]{0,1}(?:" APARTMENT ")?")))
+(def postal (re-pattern (str "(" POSTCODE ")?[\\s]{0,1}(" POSTOFFICE ")?")))

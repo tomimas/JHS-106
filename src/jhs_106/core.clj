@@ -29,36 +29,64 @@
       streetname
       (last unabbreviated))))
 
+(defn- street-line
+  [line]
+  (if (not-nil? line)
+    (re-matches street (clojure.string/trim line))))
+
+(defn- street-data
+  [parts]
+  (if (not-nil? parts)
+    (conj {:name (capitalize (unabbreviate (if (< (count parts) 3) (get parts 0) (trim (get parts 1)))))}
+                     (if (not-nil? (get parts 2))
+                       {:number (.toLowerCase
+                                  (str (get parts 2)
+                                       (get parts 3)
+                                       (if (not-nil? (get parts 4))
+                                         (str "-" (get parts 4)))
+                                       (if (not-nil? (get parts 5))
+                                         (str "/" (get parts 5)))))})
+                     (if (and (not-nil? (get parts 2)) (nil? (get parts 4)))
+                       {:numberpart (get parts 2)})
+                     (if (not-nil? (get parts 3))
+                       {:numberpartition (.toLowerCase ^String (get parts 3))})
+                     (if (not-nil? (get parts 4))
+                       {:startnumber (get parts 2)
+                        :endnumber (get parts 4)})
+                     (if (not-nil? (get parts 5))
+                       {:building (get parts 5)})
+                     (if (and (not-nil? (get parts 6)) (re-matches (re-pattern (str "(?:[" ALL_LETTERS "]{1})")) (get parts 6)))
+                       {:stairway (.toUpperCase ^String (get parts 6))})
+                     (if (not-nil? (get parts 7))
+                       {:apartment (.toLowerCase (str (get parts 7) (get parts 8)))})
+                     (if (not-nil? (get parts 7))
+                       {:apartmentnumber (get parts 7)})
+                     (if (not-nil? (get parts 8))
+                       {:apartmentpartition (.toLowerCase ^String (get parts 8))}))))
+
+(defn- postal-line
+  [lines]
+  (if (< 1 (count lines))
+    (let [line (last lines)]
+      (if (not-nil? line)
+        (re-matches postal (clojure.string/trim line))))))
+
+(defn- postal-data
+  [parts]
+  {:postcode (if (not-nil? (get parts 1))
+               (get parts 1))
+   :postoffice (if (not-nil? (get parts 2))
+                 (.toUpperCase ^String (get parts 2)))})
+
 (defn parse
   "Parses input into JHS-106 specified parts."
   [input]
-  (let [parts (re-matches street input)]
-    {:street (conj {:name (capitalize (unabbreviate (if (< (count parts) 3) (get parts 0) (trim (get parts 1)))))}
-                   (if (not-nil? (get parts 2))
-                     {:number (.toLowerCase
-                                (str (get parts 2)
-                                     (get parts 3)
-                                     (if (not-nil? (get parts 4))
-                                       (str "-" (get parts 4)))
-                                     (if (not-nil? (get parts 5))
-                                       (str "/" (get parts 5)))))})
-                   (if (and (not-nil? (get parts 2)) (nil? (get parts 4)))
-                     {:numberpart (get parts 2)})
-                   (if (not-nil? (get parts 3))
-                     {:numberpartition (.toLowerCase ^String (get parts 3))})
-                   (if (not-nil? (get parts 4))
-                     {:startnumber (get parts 2)
-                      :endnumber (get parts 4)})
-                   (if (not-nil? (get parts 5))
-                     {:building (get parts 5)})
-                   (if (and (not-nil? (get parts 6)) (re-matches (re-pattern (str "(?:[" SMALL_LETTERS CAPITAL_LETTERS "]{1})")) (get parts 6)))
-                     {:stairway (.toUpperCase ^String (get parts 6))})
-                   (if (not-nil? (get parts 7))
-                     {:apartment (.toLowerCase (str (get parts 7) (get parts 8)))})
-                   (if (not-nil? (get parts 7))
-                     {:apartmentnumber (get parts 7)})
-                   (if (not-nil? (get parts 8))
-                     {:apartmentpartition (.toLowerCase ^String (get parts 8))}))}))
+  (let [lines (clojure.string/split input #"[\n,]+")]
+    (into {}
+          (filter
+            #(not-nil? (val %))
+            (conj {:street (street-data (street-line (first lines)))}
+                  (postal-data (postal-line lines)))))))
 
 (defn simple-parse
   "Parses input into simple parts."
