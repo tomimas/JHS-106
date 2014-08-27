@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [jhs-106.reg :refer :all]))
 
-(deftest shouldMatchStreetName
+(deftest should-match-street-name
   (testing "Street name regexp matching"
     (is (= "Rosvokatu" (re-matches streetName "Rosvokatu"))))
   (testing "Multipart street names"
@@ -21,17 +21,17 @@
     (is (= "\u00C5lans V\u00E4nstra v\u00E5ning" (re-matches streetName "\u00C5lans V\u00E4nstra v\u00E5ning")))
     (is (= "\u00C5lans V. v\u00E5n." (re-matches streetName "\u00C5lans V. v\u00E5n.")))))
 
-(deftest shouldMatchAbbreviatedStreetName
+(deftest should-match-abbreviated-street-name
   (testing "Abbreviated street name matching"
            (doseq [v (vals abbreviations)]
              (is (= (str "Rosvo" v) (re-matches streetName (str "Rosvo" v)))))))
 
-(deftest shouldMatchAbbreviatedMultipartStreetName
+(deftest should-match-abbreviated-multipart-street-name
   (testing "Abbreviated street name matching"
            (doseq [v (vals abbreviations)]
              (is (= (str "Iso Rosvon " v) (re-matches streetName (str "Iso Rosvon " v)))))))
 
-(deftest shouldMatchStreetNumber
+(deftest should-match-street-number
   (testing "Street number regexp matching"
     (is (= ["1" "1" nil nil nil] (re-matches streetNumber "1")))
     (is (= ["1z" "1" "z" nil nil] (re-matches streetNumber "1z")))
@@ -40,7 +40,7 @@
     (is (= nil (re-matches streetNumber "B")))
     (is (= ["1-3" "1" nil "3" nil] (re-matches streetNumber "1-3")))))
 
-(deftest shouldMatchFullStreet
+(deftest should-match-full-street
   (testing "full street"
     (is (= ["Rosvokatu 1" "Rosvokatu " "1" nil nil nil nil nil nil] (re-matches street "Rosvokatu 1")))
     (is (= ["Rosvokatu 1c" "Rosvokatu " "1" "c" nil nil nil nil nil] (re-matches street "Rosvokatu 1c")))
