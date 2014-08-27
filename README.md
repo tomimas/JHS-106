@@ -1,14 +1,12 @@
 JHS-106
 =======
 
-Clojure implementation of Finnish address parsing based on [JHS-106 specification] (http://www.jhs-suositukset.fi/suomi/jhs106).
-Sadly the specification is available only in finnish.
+Clojure implementation of Finland's postal address parsing, based on [JHS-106 specification] (http://www.jhs-suositukset.fi/suomi/jhs106).
+Sadly the specification is available only in Finnish.
 
 ## Latest version
 
-```clojure
-[tomimas/jhs-106 "0.5.0"]
-```
+[![Clojars Project](http://clojars.org/tomimas/jhs-106/latest-version.svg)](http://clojars.org/tomimas/jhs-106)
 
 ## Examples
 
@@ -61,18 +59,27 @@ user=> (j/parse "Mikki Hiiren p. 12a/4 as. 034b")
 {:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :building "4",
           :numberpartition "a", :numberpart "12", :number "12a/4",
           :name "Mikki Hiiren polku"}}
-user=> (j/parse "Tarkk'ampujank. 12-14 rak. 2 B 034b")
+user=> (j/parse "Tarkk'ampujank. 12-14 rak. 2 B 34b")
 {:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
           :building "2", :endnumber "14", :startnumber "12", :number "12-14/2",
           :name "Tarkk'ampujankatu"}}
 ```
 
+Formats output:
+```clojure
+user=> (require '[jhs-106.core :as j])
+nil
+user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B")
+{:street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
+          :building "2", :numberpart "12", :number "12a/2", :name "Tarkk'ampujankatu"}}
+```
+
 ## Eclipse
 
-By running 'lein eclipse', the Eclipse project is created for IDE development.
+By running 'lein eclipse', the Eclipse project files are created for IDE development.
 
 ## License
 
-Copyright © 2014 Tomi Suuronen
+Copyright ï¿½ 2014 Tomi Suuronen
 
 Distributed under the Eclipse Public License, the same as Clojure.
