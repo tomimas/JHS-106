@@ -90,7 +90,7 @@ user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B
  :postcode "05830",
  :street {:apartmentpartition "b", :apartmentnumber "34", :apartment "34b", :stairway "B",
           :building "2", :numberpartition "a", :numberpart "12", :number "12a/2",
-          :name "Tarkk'ampujankatu"}}user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B,05830 HYVINKÄÄ")
+          :name "Tarkk'ampujankatu"}}
 user=> (j/parse "Tarkk'ampujank. 12A rak. 2 b 034B, 05830 Hyvinkää")
 {:postoffice "HYVINKÄÄ",
  :postcode "05830",
