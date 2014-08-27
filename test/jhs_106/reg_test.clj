@@ -96,15 +96,17 @@
 
 (deftest should-match-postal
   (testing "Postcode regexp matching"
-    (is (= ["00740" "00740" ""] (re-matches postal "00740"))))
+    (is (= ["00740" "00740" nil] (re-matches postal "00740"))))
   (testing "Postoffice regexp matching"
     (is (= ["VIERTOLA" nil "VIERTOLA"] (re-matches postal "VIERTOLA")))
     (is (= ["Viertola" nil "Viertola"] (re-matches postal "Viertola")))
     (is (= ["vIeRToLA" nil "vIeRToLA"] (re-matches postal "vIeRToLA")))
+    (is (= ["Vihti KK" nil "Vihti KK"] (re-matches postal "Vihti KK")))
     (is (= ["HYVINK\u00C4\u00C4" nil "HYVINK\u00C4\u00C4"] (re-matches postal "HYVINK\u00C4\u00C4")))
     (is (= ["\u00D6r\u00F6" nil "\u00D6r\u00F6"] (re-matches postal "\u00D6r\u00F6"))))
   (testing "Postcode and postoffice regexp matching"
     (is (= ["00940 VIERTOLA" "00940" "VIERTOLA"] (re-matches postal "00940 VIERTOLA")))
     (is (= ["00940 vIeRToLA" "00940" "vIeRToLA"] (re-matches postal "00940 vIeRToLA")))
+    (is (= ["00940 vIeRToLA kK" "00940" "vIeRToLA kK"] (re-matches postal "00940 vIeRToLA kK")))
     (is (= ["91940 HYVINK\u00C4\u00C4" "91940" "HYVINK\u00C4\u00C4"] (re-matches postal "91940 HYVINK\u00C4\u00C4")))
     (is (= ["06660 \u00C5land" "06660" "\u00C5land"] (re-matches postal "06660 \u00C5land")))))

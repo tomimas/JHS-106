@@ -43,7 +43,35 @@
                             :apartmentnumber "15"
                             :apartmentpartition "b"}
                    :postcode "12345"
-                   :postoffice "\u00C5LAND"} (parse "Ulla Tapanisen r. 29B d 15B,12345 \u00E5land")))))
+                   :postoffice "\u00C5LAND"} (parse "Ulla Tapanisen r. 29B d 15B,12345 \u00E5land")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"
+                            :apartment "15b"
+                            :apartmentnumber "15"
+                            :apartmentpartition "b"}
+                   :postcode "12345"} (parse "Ulla Tapanisen r. 29B d 15B, 12345")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"
+                            :apartment "15b"
+                            :apartmentnumber "15"
+                            :apartmentpartition "b"}
+                   :postoffice "\u00C5LAND"} (parse "Ulla Tapanisen r. 29B d 15B\n \u00E5land")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"
+                            :apartment "15b"
+                            :apartmentnumber "15"
+                            :apartmentpartition "b"}
+                   :postcode "12345"
+                   :postoffice "VIHTI KK"} (parse "Ulla Tapanisen r. 29B d 15B\n 12345 viHti Kk")))))
 
 (deftest should-parse-street-based-input
   (testing "Street name parsing"
