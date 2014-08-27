@@ -34,9 +34,17 @@
                      :numberpart "2"
                      :numberpartition "a"}} (parse "Kettulankatu 2a")))
     (is (= {:street {:name "Kettulankatu"
+                     :number "2a"
+                     :numberpart "2"
+                     :numberpartition "a"}} (parse "Kettulankatu 2A")))
+    (is (= {:street {:name "Kettulankatu"
                      :number "2a-b"
                      :numberpart "2"
                      :numberpartition "a-b"}} (parse "Kettulankatu 2a-b")))
+    (is (= {:street {:name "Kettulankatu"
+                     :number "2a-b"
+                     :numberpart "2"
+                     :numberpartition "a-b"}} (parse "Kettulankatu 2A-B")))
     (is (= {:street {:name "Kettulankatu"
                      :number "2-4"
                      :startnumber "2"
@@ -72,6 +80,10 @@
                      :numberpart "12"
                      :numberpartition "a"}} (parse "Gregorius IX:n tie 12a")))
     (is (={ :street {:name "Gregorius IX:n tie"
+                     :number "12a"
+                     :numberpart "12"
+                     :numberpartition "a"}} (parse "Gregorius IX:n tie 12A")))
+    (is (={ :street {:name "Gregorius IX:n tie"
                      :number "12-14"
                      :startnumber "12"
                      :endnumber "14"}} (parse "Gregorius IX:n tie 12-14")))
@@ -102,6 +114,10 @@
                             :number "6"
                             :numberpart "6"
                             :stairway "A"}} (parse "Kuusik. 6 A")))
+           (is (= {:street {:name "Kuusikatu"
+                            :number "6"
+                            :numberpart "6"
+                            :stairway "A"}} (parse "Kuusik. 6 a")))
            (is (= {:street {:name "Ulla Tapanisen katu"
                             :number "29"
                             :numberpart "29"
@@ -111,11 +127,21 @@
                             :numberpart "29"
                             :numberpartition "b"
                             :stairway "D"}} (parse "Ulla Tapanisen r. 29b D")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"}} (parse "Ulla Tapanisen r. 29B d")))
            (is (= {:street {:name "Ulvilantie"
                             :number "29/4"
                             :numberpart "29"
                             :building "4"
-                            :stairway "K"}} (parse "Ulvilant. 29/4 K")))))
+                            :stairway "K"}} (parse "Ulvilant. 29/4 K")))
+           (is (= {:street {:name "Ulvilantie"
+                            :number "29/4"
+                            :numberpart "29"
+                            :building "4"
+                            :stairway "K"}} (parse "Ulvilant. 29/4 k")))))
 
 (deftest should-parse-apartment-based-input
   (testing "Simple apartment parsing"
@@ -154,6 +180,15 @@
                             :stairway "K"
                             :apartment "825"
                             :apartmentnumber "825"}} (parse "Ulvilantie 29a-b/4 K 825")))
+           (is (= {:street {:name "Ulvilantie"
+                            :number "29a-b/4"
+                            :numberpart "29"
+                            :numberpartition "a-b"
+                            :building "4"
+                            :stairway "K"
+                            :apartment "825c"
+                            :apartmentnumber "825"
+                            :apartmentpartition "c"}} (parse "Ulvilantie 29A-B/4 k 825C")))
            (is (={ :street {:name "Gregorius IX:n tie"
                             :number "12-14"
                             :startnumber "12"
@@ -161,7 +196,15 @@
                             :stairway "A"
                             :apartment "13a"
                             :apartmentnumber "13"
-                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 A 13a"))))
+                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 A 13a")))
+           (is (={ :street {:name "Gregorius IX:n tie"
+                            :number "12-14"
+                            :startnumber "12"
+                            :endnumber "14"
+                            :stairway "A"
+                            :apartment "13a"
+                            :apartmentnumber "13"
+                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 a 13A"))))
   (testing "Simple leading zeroes apartment number parsing"
            (is (= {:street {:name "Kuusikatu"
                             :number "6"
@@ -176,6 +219,13 @@
                             :apartment "1c"
                             :apartmentnumber "1"
                             :apartmentpartition "c"}} (parse "Kuusikatu 6 A 001c")))
+           (is (= {:street {:name "Kuusikatu"
+                            :number "6"
+                            :numberpart "6"
+                            :stairway "A"
+                            :apartment "1c"
+                            :apartmentnumber "1"
+                            :apartmentpartition "c"}} (parse "Kuusikatu 6 a 001C")))
            (is (= {:street {:name "Ulla Tapanisen katu"
                             :number "29"
                             :numberpart "29"
@@ -188,7 +238,14 @@
                             :stairway "D"
                             :apartment "15a"
                             :apartmentnumber "15"
-                            :apartmentpartition "a"}} (parse "Ulla Tapanisen katu 29 D 015a"))))
+                            :apartmentpartition "a"}} (parse "Ulla Tapanisen katu 29 D 015a")))
+           (is (= {:street {:name "Ulla Tapanisen katu"
+                            :number "29"
+                            :numberpart "29"
+                            :stairway "D"
+                            :apartment "15a"
+                            :apartmentnumber "15"
+                            :apartmentpartition "a"}} (parse "Ulla Tapanisen katu 29 d 015A"))))
   (testing "Abbreviated apartment indicating parsing (it has no stairway)"
            (is (= {:street {:name "Kuusikatu"
                             :number "6"
@@ -219,6 +276,12 @@
                             :stairway "A"
                             :apartment "1"
                             :apartmentnumber "1"}} (parse "Kuusik. 6 A 1")))
+           (is (= {:street {:name "Kuusikatu"
+                            :number "6"
+                            :numberpart "6"
+                            :stairway "A"
+                            :apartment "1"
+                            :apartmentnumber "1"}} (parse "Kuusik. 6 a 1")))
            (is (= {:street {:name "Ulla Tapanisen katu"
                             :number "29"
                             :numberpart "29"
@@ -233,6 +296,14 @@
                             :apartment "15b"
                             :apartmentnumber "15"
                             :apartmentpartition "b"}} (parse "Ulla Tapanisen r. 29b D 15b")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"
+                            :apartment "15b"
+                            :apartmentnumber "15"
+                            :apartmentpartition "b"}} (parse "Ulla Tapanisen r. 29B d 15B")))
            (is (= {:street {:name "Ulvilantie"
                             :number "29/4"
                             :numberpart "29"
@@ -277,6 +348,13 @@
                             :building "2"
                             :apartment "15"
                             :apartmentnumber "15"}} (parse "Ulla Tapanisen katu 29a rak. 2 15")))
+           (is (= {:street {:name "Ulla Tapanisen katu"
+                            :number "29a/2"
+                            :numberpart "29"
+                            :numberpartition "a"
+                            :building "2"
+                            :apartment "15"
+                            :apartmentnumber "15"}} (parse "Ulla Tapanisen katu 29A rak. 2 15")))
            (is (= {:street {:name "Ulvilantie"
                             :number "29/4"
                             :numberpart "29"
@@ -291,7 +369,16 @@
                             :stairway "A"
                             :apartment "13a"
                             :apartmentnumber "13"
-                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 rak. 7 A 13a")))))
+                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 rak. 7 A 13a")))
+           (is (={ :street {:name "Gregorius IX:n tie"
+                            :number "12-14/7"
+                            :startnumber "12"
+                            :endnumber "14"
+                            :building "7"
+                            :stairway "A"
+                            :apartment "13a"
+                            :apartmentnumber "13"
+                            :apartmentpartition "a"}} (parse "Gregorius IX:n tie 12-14 rak. 7 a 13A")))))
 
 (deftest should-do-simple-parsing
   (is (= {:street {:name "Kuusikatu"}} (simple-parse "Kuusikatu")))
@@ -330,6 +417,10 @@
                    :number "12-14"
                    :stairway "A"
                    :apartment "13a"}} (simple-parse "Gregorius IX:n tie 12-14 A 13a")))
+  (is (={ :street {:name "Gregorius IX:n tie"
+                   :number "12-14"
+                   :stairway "A"
+                   :apartment "13a"}} (simple-parse "Gregorius IX:n tie 12-14 a 13A")))
   (is (={ :street {:name "Gregorius IX:n tie"
                    :number "12-14/2"
                    :stairway "A"
