@@ -118,7 +118,12 @@
     (is (= {:street {:name "Kettulankatu"
                      :number "2-4"
                      :startnumber "2"
-                     :endnumber "4"}} (parse "Kettulankatu 2-4"))))
+                     :endnumber "4"}} (parse "Kettulankatu 2-4")))
+    (is (= {:street {:name "Kettulankatu"
+                     :number "2-4b"
+                     :startnumber "2"
+                     :endnumber "4"
+                     :numberpartition "b"}} (parse "Kettulankatu 2-4b"))))
   (testing "Special characters in street names with street numbers"
     (is (={ :street {:name "\u00C4mm\u00E4l\u00E4nkatu"
                      :number "1"
@@ -202,6 +207,12 @@
                             :numberpart "29"
                             :numberpartition "b"
                             :stairway "D"}} (parse "Ulla Tapanisen r. 29B d")))
+           (is (= {:street {:name "Ritva Valkaman tori"
+                            :number "29-31b"
+                            :startnumber "29"
+                            :endnumber "31"
+                            :numberpartition "b"
+                            :stairway "D"}} (parse "Ritva Valkaman tr. 29-31B d")))
            (is (= {:street {:name "Ulvilantie"
                             :number "29/4"
                             :numberpart "29"
@@ -259,6 +270,16 @@
                             :apartment "825c"
                             :apartmentnumber "825"
                             :apartmentpartition "c"}} (parse "Ulvilantie 29A-B/4 k 825C")))
+           (is (= {:street {:name "Ulvilantie"
+                            :number "29-33b/4"
+                            :startnumber "29"
+                            :endnumber "33"
+                            :numberpartition "b"
+                            :building "4"
+                            :stairway "K"
+                            :apartment "825c"
+                            :apartmentnumber "825"
+                            :apartmentpartition "c"}} (parse "Ulvilantie 29-33B/4 k 825C")))
            (is (={ :street {:name "Gregorius IX:n tie"
                             :number "12-14"
                             :startnumber "12"
@@ -338,7 +359,14 @@
                             :numberpart "29"
                             :building "4"
                             :apartment "825"
-                            :apartmentnumber "825"}} (parse "Ulvilav\u00E4gen 29/4 bst. 825"))))
+                            :apartmentnumber "825"}} (parse "Ulvilav\u00E4gen 29/4 bst. 825")))
+           (is (= {:street {:name "Ulvilav\u00E4gen"
+                            :number "2-4/4"
+                            :startnumber "2"
+                            :endnumber "4"
+                            :building "4"
+                            :apartment "825"
+                            :apartmentnumber "825"}} (parse "Ulvilav\u00E4gen 2-4/4 bst. 825"))))
   (testing "Simple abbreviated streetname parsing"
            (is (= {:street {:name "Kuusikatu"
                             :number "6"
@@ -457,7 +485,17 @@
                             :stairway "\u00D6"
                             :apartment "13\u00E5"
                             :apartmentnumber "13"
-                            :apartmentpartition "\u00E5"}} (parse "Gregorius IX:n tie 12-14 rak. 7 \u00F6 13\u00C5")))))
+                            :apartmentpartition "\u00E5"}} (parse "Gregorius IX:n tie 12-14 rak. 7 \u00F6 13\u00C5")))
+           (is (={ :street {:name "Gregorius IX:n tie"
+                            :number "12-14d/7"
+                            :startnumber "12"
+                            :endnumber "14"
+                            :numberpartition "d"
+                            :building "7"
+                            :stairway "\u00D6"
+                            :apartment "13\u00E5"
+                            :apartmentnumber "13"
+                            :apartmentpartition "\u00E5"}} (parse "Gregorius IX:n t. 12-14D rak. 7 \u00F6 13\u00C5")))))
 
 (deftest should-do-simple-parsing
   (is (= {:street {:name "Kuusikatu"}} (simple-parse "Kuusikatu")))
