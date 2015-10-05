@@ -31,12 +31,14 @@
 
 (defn- street-line
   [line]
-  (if (not-nil? line)
-    (re-matches street (clojure.string/trim line))))
+  (let [line (clojure.string/trim line)]
+    (cond (nil? line) nil
+          (re-matches allowedCharacters line) (re-matches street line)
+          :default nil)))
 
 (defn- street-data
   [parts]
-  (if (not-nil? parts)
+  (when (not-nil? parts)
     (conj {:name (capitalize (unabbreviate (if (< (count parts) 3) (get parts 0) (trim (get parts 1)))))}
                      (if (not-nil? (get parts 2))
                        {:number (.toLowerCase
