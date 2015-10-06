@@ -104,6 +104,6 @@ By running 'lein eclipse', the Eclipse project files are created for IDE develop
 
 ## License
 
-Copyright &copy; 2014 Tomi Suuronen
+Copyright &copy; 2014-2015 Tomi Suuronen
 
 Distributed under the Eclipse Public License, the same as Clojure.
