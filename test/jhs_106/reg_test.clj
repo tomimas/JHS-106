@@ -19,7 +19,9 @@
     (is (= "Minna \u00C4kkijyrk\u00E4n penger" (re-matches streetName "Minna \u00C4kkijyrk\u00E4n penger")))
     (is (= "Minna \u00C4kkijyrk\u00E4n pgr." (re-matches streetName "Minna \u00C4kkijyrk\u00E4n pgr.")))
     (is (= "\u00C5lans V\u00E4nstra v\u00E5ning" (re-matches streetName "\u00C5lans V\u00E4nstra v\u00E5ning")))
-    (is (= "\u00C5lans V. v\u00E5n." (re-matches streetName "\u00C5lans V. v\u00E5n.")))))
+    (is (= "\u00C5lans V. v\u00E5n." (re-matches streetName "\u00C5lans V. v\u00E5n.")))
+    (is (= "W\u00FCrthinkatu" (re-matches streetName "W\u00FCrthinkatu")))
+    (is (= "W\u00DCRTHINKATU" (re-matches streetName "W\u00DCRTHINKATU")))))
 
 (deftest should-match-abbreviated-street-name
   (testing "Abbreviated street name matching"
