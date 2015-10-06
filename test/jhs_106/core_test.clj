@@ -553,3 +553,7 @@
     (is (= (str "Tark'ampujan" (name (key v))) (unabbreviate (str "Tark'ampujan" (val v)))) (str (val v) " => " (name (key v))))
     (is (= (str "\u00C4mm\u00E4l\u00E4n" (name (key v))) (unabbreviate (str "\u00C4mm\u00E4l\u00E4n" (val v)))) (str (val v) " => " (name (key v))))
     (is (= (str "Gregorius IX:n " (name (key v))) (unabbreviate (str "Gregorius IX:n " (val v)))) (str (val v) " => " (name (key v))))))
+
+(deftest should-not-do-parsing-with-forbidden-characters
+  (is (= {} (parse "This is email address with some text lappeenranta@virhe.fi")))
+  (is (= {:street nil} (simple-parse "This is email address with some text lappeenranta@virhe.fi"))))
