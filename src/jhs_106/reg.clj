@@ -10,6 +10,10 @@
 (def SMALL_E_WITH_ACUTE "\u00E9") ; é
 (def CAPITAL_U_WITH_UMLAUT "\u00DC") ; Ü
 (def SMALL_U_WITH_UMLAUT "\u00FC") ; ü
+(def CAPITAL_S_WITH_CARON "\u0160") ; Š
+(def SMALL_S_WITH_CARON "\u0161") ; š
+(def CAPITAL_Z_WITH_CARON "\u017D") ; Ž
+(def SMALL_Z_WITH_CARON "\u017E") ; ž
 (def ACUTE_ACCENT "\u00B4") ; ´
 (def APOSTROPHE "\u0027") ; '
 (def SMALL_LETTERS "a-z")
@@ -20,11 +24,15 @@
                         SMALL_A_WITH_RING_ABOVE
                         SMALL_E_WITH_ACUTE
                         SMALL_U_WITH_UMLAUT
+                        SMALL_S_WITH_CARON
+                        SMALL_Z_WITH_CARON
                         CAPITAL_O_WITH_DIARESIS
                         CAPITAL_A_WITH_DIARESIS
                         CAPITAL_A_WITH_RING_ABOVE
                         CAPITAL_E_WITH_ACUTE
-                        CAPITAL_U_WITH_UMLAUT))
+                        CAPITAL_U_WITH_UMLAUT
+                        CAPITAL_S_WITH_CARON
+                        CAPITAL_Z_WITH_CARON))
 
 (def OTHER (str APOSTROPHE
                 "-/\\.:"

@@ -21,7 +21,11 @@
     (is (= "\u00C5lans V\u00E4nstra v\u00E5ning" (re-matches streetName "\u00C5lans V\u00E4nstra v\u00E5ning")))
     (is (= "\u00C5lans V. v\u00E5n." (re-matches streetName "\u00C5lans V. v\u00E5n.")))
     (is (= "W\u00FCrthinkatu" (re-matches streetName "W\u00FCrthinkatu")))
-    (is (= "W\u00DCRTHINKATU" (re-matches streetName "W\u00DCRTHINKATU")))))
+    (is (= "W\u00DCRTHINKATU" (re-matches streetName "W\u00DCRTHINKATU")))
+    (is (= "T\u0161ehovs gata" (re-matches streetName "T\u0161ehovs gata")))
+    (is (= "\u0160kodan penger" (re-matches streetName "\u0160kodan penger")))
+    (is (= "Fid\u017Ein ranta" (re-matches streetName "Fid\u017Ein ranta")))
+    (is (= "Tohtori \u017Divagon aukio" (re-matches streetName "Tohtori \u017Divagon aukio")))))
 
 (deftest should-match-abbreviated-street-name
   (testing "Abbreviated street name matching"
