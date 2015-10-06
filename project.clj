@@ -1,4 +1,4 @@
-(defproject tomimas/jhs-106 "0.6.2"
+(defproject tomimas/jhs-106 "0.6.3"
   :description "Clojure implementation of Finnish address parsing based on JHS-106 specification."
   :url "https://github.com/tomimas/JHS-106"
   :license {:name "Eclipse Public License"
