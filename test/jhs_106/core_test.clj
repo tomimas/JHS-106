@@ -556,4 +556,13 @@
 
 (deftest should-not-do-parsing-with-forbidden-characters
   (is (= {} (parse "This is email address with some text lappeenranta@virhe.fi")))
-  (is (= {:street nil} (simple-parse "This is email address with some text lappeenranta@virhe.fi"))))
+  (is (= {:street nil} (simple-parse "This is email address with some text lappeenranta@virhe.fi")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13:")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13:")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13.")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13.")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13: A 15c")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13: A 15c")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13. A 15c")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13. A 15c")))
+  )
