@@ -54,6 +54,7 @@
 (def POSTOFFICE (str "(?:[" ALL_LETTERS "]+[\\s]{0,1})+"))
 
 (def ALLOWED_CHARACTERS (str "[" ALL_CHARACTERS "01-9-/\\.:\\s]"))
+(def DISALLOWED_CHARACTER_COMBINATIONS (str "(?!.*((\\d:)|(\\d\\.)).*)"))
 
 (def abbreviations (array-map (keyword "L\u00E4ntinen") "L\u00E4nt."
                               :Pohjoinen "Pohj."
@@ -111,4 +112,4 @@
 (def streetNumber (re-pattern STREET_NUMBER))
 (def street (re-pattern (str "(" STREET_NAME ")(?:" STREET_NUMBER ")?[\\s]{0,1}(" STREET_STAIRWAY ")?[\\s]{0,1}(?:" APARTMENT ")?")))
 (def postal (re-pattern (str "(" POSTCODE ")?[\\s]{0,1}(" POSTOFFICE ")?")))
-(def allowedCharacters (re-pattern (str "^[" ALLOWED_CHARACTERS "]*$")))
+(def allowedCharacters (re-pattern (str "^" DISALLOWED_CHARACTER_COMBINATIONS "[" ALLOWED_CHARACTERS "]*$")))
