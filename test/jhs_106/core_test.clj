@@ -495,7 +495,17 @@
                             :stairway "\u00D6"
                             :apartment "13\u00E5"
                             :apartmentnumber "13"
-                            :apartmentpartition "\u00E5"}} (parse "Gregorius IX:n t. 12-14D rak. 7 \u00F6 13\u00C5")))))
+                            :apartmentpartition "\u00E5"}} (parse "Gregorius IX:n t. 12-14D rak. 7 \u00F6 13\u00C5")))
+           (is (={ :street {:name "Gallen-Kallelan katu"
+                            :number "12-14d/7"
+                            :startnumber "12"
+                            :endnumber "14"
+                            :numberpartition "d"
+                            :building "7"
+                            :stairway "\u00D6"
+                            :apartment "13\u00E5"
+                            :apartmentnumber "13"
+                            :apartmentpartition "\u00E5"}} (parse "Gallen-Kallelan k. 12-14D rak. 7 \u00F6 13\u00C5")))))
 
 (deftest should-do-simple-parsing
   (is (= {:street {:name "Kuusikatu"}} (simple-parse "Kuusikatu")))
@@ -545,7 +555,11 @@
   (is (={ :street {:name "Gregorius IX:n tie"
                    :number "12-14/2"
                    :stairway "\u00C4"
-                   :apartment "13\u00F6"}} (simple-parse "Gregorius IX:n tie 12-14 rak. 2 \u00C4 13\u00F6"))))
+                   :apartment "13\u00F6"}} (simple-parse "Gregorius IX:n tie 12-14 rak. 2 \u00C4 13\u00F6")))
+  (is (={ :street {:name "Gallen-Kallelan katu"
+                   :number "12-14/2"
+                   :stairway "A"
+                   :apartment "13a"}} (simple-parse "Gallen-Kallelan k. 12-14 rak. 2 A 13a"))))
 
 (deftest should-unabbreviate-streetname
   (doseq [v abbreviations]
@@ -563,6 +577,12 @@
   (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13.")))
   (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13-")))
   (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13-")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street :13")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street :13")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street .13")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street .13")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street -13")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street -13")))
   (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13: A 15c")))
   (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13: A 15c")))
   (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13. A 15c")))
@@ -575,6 +595,12 @@
   (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13 .")))
   (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13 -")))
   (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13 -")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13 :A")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13 :A")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13 .A")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13 .A")))
+  (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13 -A")))
+  (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13 -A")))
   (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13 . A 15c")))
   (is (= {:street nil} (simple-parse "another regexp bomb on invalid input with extremely long street 13 . A 15c")))
   (is (= {} (parse "another regexp bomb on invalid input with extremely long street 13 : A 15c")))
