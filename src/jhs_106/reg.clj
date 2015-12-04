@@ -54,7 +54,7 @@
 (def POSTOFFICE (str "(?:[" ALL_LETTERS "]+[\\s]{0,1})+"))
 
 (def ALLOWED_CHARACTERS (str "[" ALL_CHARACTERS "01-9-/\\.:\\s]"))
-(def DISALLOWED_CHARACTER_COMBINATIONS (str "(?!.*((\\d:)|(\\d\\.)).*)"))
+(def DISALLOWED_CHARACTER_COMBINATIONS (str "(?!(.*((\\d[:\\.])|(\\s[:\\.-][\\s]?)|([" ALL_CHARACTERS "]\\.[^\\s])|(\\d-[^\\d])).*)|(^.*((\\s[-\\.:])|(\\d-))$))"))
 
 (def abbreviations (array-map (keyword "L\u00E4ntinen") "L\u00E4nt."
                               :Pohjoinen "Pohj."
