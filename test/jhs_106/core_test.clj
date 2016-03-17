@@ -562,6 +562,8 @@
                    :apartment "13a"}} (simple-parse "Gallen-Kallelan k. 12-14 rak. 2 A 13a"))))
 
 (deftest should-parse-dot-containing-street-names
+  (is (={ :street {:name "K. H. Wiikin katu"}} (simple-parse "K. H. Wiikin katu")))
+  (is (={ :street {:name "K. H. Wiikin katu"}} (simple-parse "K. H. Wiikin k.")))
   (is (={ :street {:name "K. H. Wiikin katu"
                    :number "3"
                    :stairway "A"
@@ -569,7 +571,13 @@
   (is (={ :street {:name "K. H. Wiikin katu"
                    :number "3"
                    :stairway "A"
-                   :apartment "1"}} (simple-parse "K. H. Wiikin k. 3 A 1"))))
+                   :apartment "1"}} (simple-parse "K. H. Wiikin k. 3 A 1")))
+  (is (={ :street {:name "K. H. Wiikin katu"
+                   :number "3/2"
+                   :numberpart "3"
+                   :building "2"
+                   :apartment "1"
+                   :apartmentnumber "1"}} (parse "K. H. Wiikin k. 3 rak. 2 as 1 "))))
 
 (deftest should-unabbreviate-streetname
   (doseq [v abbreviations]
