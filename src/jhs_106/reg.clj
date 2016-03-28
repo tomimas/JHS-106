@@ -19,20 +19,24 @@
 (def SMALL_LETTERS "a-z")
 (def CAPITAL_LETTERS "A-Z")
 
-(def LATIN_LETTERS (str SMALL_O_WITH_DIARESIS
-                        SMALL_A_WITH_DIARESIS
-                        SMALL_A_WITH_RING_ABOVE
-                        SMALL_E_WITH_ACUTE
-                        SMALL_U_WITH_UMLAUT
-                        SMALL_S_WITH_CARON
-                        SMALL_Z_WITH_CARON
-                        CAPITAL_O_WITH_DIARESIS
-                        CAPITAL_A_WITH_DIARESIS
-                        CAPITAL_A_WITH_RING_ABOVE
-                        CAPITAL_E_WITH_ACUTE
-                        CAPITAL_U_WITH_UMLAUT
-                        CAPITAL_S_WITH_CARON
-                        CAPITAL_Z_WITH_CARON))
+(def SMALL_LATIN_LETTERS (str SMALL_O_WITH_DIARESIS
+                              SMALL_A_WITH_DIARESIS
+                              SMALL_A_WITH_RING_ABOVE
+                              SMALL_E_WITH_ACUTE
+                              SMALL_U_WITH_UMLAUT
+                              SMALL_S_WITH_CARON
+                              SMALL_Z_WITH_CARON))
+
+(def CAPITAL_LATIN_LETTERS (str CAPITAL_O_WITH_DIARESIS
+                                CAPITAL_A_WITH_DIARESIS
+                                CAPITAL_A_WITH_RING_ABOVE
+                                CAPITAL_E_WITH_ACUTE
+                                CAPITAL_U_WITH_UMLAUT
+                                CAPITAL_S_WITH_CARON
+                                CAPITAL_Z_WITH_CARON))
+
+(def LATIN_LETTERS (str SMALL_LATIN_LETTERS
+                        CAPITAL_LATIN_LETTERS))
 
 (def OTHER (str APOSTROPHE
                 "-/\\.:"
@@ -41,6 +45,10 @@
 (def ALL_LETTERS (str SMALL_LETTERS
                       CAPITAL_LETTERS
                       LATIN_LETTERS))
+
+(def ALL_SMALL_CHARACTERS (str SMALL_LETTERS
+                               SMALL_LATIN_LETTERS
+                               OTHER))
 
 (def ALL_CHARACTERS (str ALL_LETTERS
                          OTHER))
@@ -54,7 +62,7 @@
 (def POSTOFFICE (str "(?:[" ALL_LETTERS "]+[\\s]{0,1})+"))
 
 (def ALLOWED_CHARACTERS (str "[" ALL_CHARACTERS "01-9-/\\.:\\s]"))
-(def DISALLOWED_CHARACTER_COMBINATIONS (str "(?!(.*((\\d[:\\.])|(\\s[:\\.-][\\s]?)|([" ALL_CHARACTERS "]\\.[^\\s])|(\\d-[^\\d])).*)|(^.*((\\s[-\\.:])|(\\d-))$))"))
+(def DISALLOWED_CHARACTER_COMBINATIONS (str "(?!(.*((\\d[:\\.])|(\\s[:\\.-][\\s]?)|([" ALL_SMALL_CHARACTERS "]\\.[^\\s])|(\\d-[^\\d])).*)|(^.*((\\s[-\\.:])|(\\d-))$))"))
 
 (def abbreviations (array-map (keyword "L\u00E4ntinen") "L\u00E4nt."
                               :Pohjoinen "Pohj."

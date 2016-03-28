@@ -572,12 +572,22 @@
                    :number "3"
                    :stairway "A"
                    :apartment "1"}} (simple-parse "K. H. Wiikin k. 3 A 1")))
+  (is (={ :street {:name "K. H. Wiikin katu"}} (parse "K. H. Wiikin katu")))
+  (is (={ :street {:name "K. H. Wiikin katu"}} (parse "K. H. Wiikin k.")))
   (is (={ :street {:name "K. H. Wiikin katu"
                    :number "3/2"
                    :numberpart "3"
                    :building "2"
                    :apartment "1"
-                   :apartmentnumber "1"}} (parse "K. H. Wiikin k. 3 rak. 2 as 1 "))))
+                   :apartmentnumber "1"}} (parse "K. H. Wiikin k. 3 rak. 2 as 1 ")))
+  (is (={ :street {:name "K.H. Wiikin katu"}} (parse "K.H. Wiikin katu")))
+  (is (={ :street {:name "K.H. Wiikin katu"}} (parse "K.H. Wiikin k.")))
+  (is (={ :street {:name "K.H. Wiikin katu"
+                   :number "3/2"
+                   :numberpart "3"
+                   :building "2"
+                   :apartment "1"
+                   :apartmentnumber "1"}} (parse "K.H. Wiikin k. 3 rak. 2 as 1 "))))
 
 (deftest should-unabbreviate-streetname
   (doseq [v abbreviations]
