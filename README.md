@@ -6,6 +6,8 @@ Sadly the specification is available only in Finnish.
 
 ## Latest version
 
+[![Build Status](https://travis-ci.org/tomimas/JHS-106.svg?branch=master)](https://travis-ci.org/tomimas/JHS-106)
+
 [![Clojars Project](http://clojars.org/tomimas/jhs-106/latest-version.svg)](http://clojars.org/tomimas/jhs-106)
 
 ## Examples
