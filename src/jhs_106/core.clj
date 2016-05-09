@@ -80,7 +80,7 @@
 (defn- postal-data
   [parts]
   {:postcode (if (not-nil? (get parts 1))
-               (get parts 1))
+               (replace-first (get parts 1) "FI-" ""))
    :postoffice (if (not-nil? (get parts 2))
                  (.toUpperCase ^String (get parts 2)))})
 
