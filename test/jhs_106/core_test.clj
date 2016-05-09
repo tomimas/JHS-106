@@ -71,7 +71,17 @@
                             :apartmentnumber "15"
                             :apartmentpartition "b"}
                    :postcode "12345"
-                   :postoffice "VIHTI KK"} (parse "Ulla Tapanisen r. 29B d 15B\n 12345 viHti Kk")))))
+                   :postoffice "VIHTI KK"} (parse "Ulla Tapanisen r. 29B d 15B\n 12345 viHti Kk")))
+           (is (= {:street {:name "Ulla Tapanisen raitti"
+                            :number "29b"
+                            :numberpart "29"
+                            :numberpartition "b"
+                            :stairway "D"
+                            :apartment "15b"
+                            :apartmentnumber "15"
+                            :apartmentpartition "b"}
+                   :postcode "12345"
+                   :postoffice "VIHTI KK"} (parse "Ulla Tapanisen r. 29B d 15B\n FI-12345 viHti Kk")))))
 
 (deftest should-parse-street-based-input
   (testing "Street name parsing"

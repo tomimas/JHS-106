@@ -102,6 +102,8 @@
     (is (= ["Ulvilantie 29-31b rak 4 K 825" "Ulvilantie " "29" nil "31" "b" "4" "K" "825" nil] (re-matches street "Ulvilantie 29-31b rak 4 K 825")))))
 
 (deftest should-match-postal
+  (testing "Postcode with FI country code"
+    (is (= ["FI-00740" "FI-00740" nil] (re-matches postal "FI-00740"))))
   (testing "Postcode regexp matching"
     (is (= ["00740" "00740" nil] (re-matches postal "00740"))))
   (testing "Postoffice regexp matching"

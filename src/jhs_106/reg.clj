@@ -58,7 +58,7 @@
 (def APARTMENT_ABBREVIATIONS "as|as\\.|bst|bst\\.")
 (def STREET_STAIRWAY (str "(?:[" ALL_LETTERS "]{1}|" APARTMENT_ABBREVIATIONS ")"))
 (def APARTMENT (str "(?:[0]{0,2})([0-9]{1,3})([" ALL_LETTERS "])?"))
-(def POSTCODE (str "[\\d]{5}"))
+(def POSTCODE (str "(?:FI-)?[\\d]{5}"))
 (def POSTOFFICE (str "(?:[" ALL_LETTERS "]+[\\s]{0,1})+"))
 
 (def ALLOWED_CHARACTERS (str "[" ALL_CHARACTERS "01-9-/\\.:\\s]"))
