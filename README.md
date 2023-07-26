@@ -1,8 +1,8 @@
 JHS-106
 =======
 
-Clojure implementation of Finland's postal address parsing, based on [JHS-106 specification] (http://www.jhs-suositukset.fi/suomi/jhs106).
-Sadly the specification is available only in Finnish.
+Clojure implementation of Finland's postal address parsing, based on [JHS-106 specification] (https://www.suomidigi.fi/ohjeet-ja-tuki/jhs-suositukset/jhs-106-postiosoite-vanhentunut).
+Sadly the specification is available only in Finnish and has been deprecated 2020.
 
 ## Latest version
 
